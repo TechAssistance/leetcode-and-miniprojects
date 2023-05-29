@@ -11,68 +11,48 @@ class ParkingSystem {
         this.small = small;
     }
 
-    public boolean checkCarBig() {
-        if (big >= 1) {
-            return true;
-        } else {
-            return false;
+    private boolean checkAvailability(int carType) {
+        switch (carType) {
+            case 1:
+                return big > 0;
+            case 2:
+                return medium > 0;
+            case 3:
+                return small > 0;
+            default:
+                return false;
         }
     }
 
-    public boolean checkCarMed() {
-        if (medium >= 1) {
-            return true;
-        } else {
-            return false;
+    private boolean parkCar(int carType) {
+        switch (carType) {
+            case 1:
+                if (big > 0) {
+                    big--;
+                    return true;
+                }
+                break;
+            case 2:
+                if (medium > 0) {
+                    medium--;
+                    return true;
+                }
+                break;
+            case 3:
+                if (small > 0) {
+                    small--;
+                    return true;
+                }
+                break;
         }
-    }
-
-    public boolean checkCarSmall() {
-        if (small >= 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean addCarBig() {
-        if (checkCarBig()) {
-            this.big--;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean addCarMed() {
-        if (checkCarMed()) {
-            this.medium--;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean addCarSmall() {
-        if (checkCarSmall()) {
-            this.small--;
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     public boolean addCar(int carType) {
-        if (carType > 0) {
-            switch (carType) {
-                case 1:
-                    return addCarBig();
-                case 2:
-                    return addCarMed();
-                case 3:
-                    return addCarSmall();
-            }
+        if (carType >= 1 && carType <= 3) {
+            return parkCar(carType);
         }
         return false;
     }
 }
+
